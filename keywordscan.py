@@ -20,9 +20,16 @@ def getUrls(word,pn,rn):
                 if name == "href":
                     heads=requests.get(attrs[name],allow_redirects=False,timeout=30).headers
                     l=heads['Location']
+                    f2.write(l+"\n")
                     print(l)
             except Exception:
                 traceback.print_exc()
 
 if __name__=="__main__":
-    getUrls("inurl:php? and intext:大学",10,50)
+    f=open("keyword.txt","r")
+    f2=open("urls.txt","w")
+    keywords=f.readlines()
+    for keyword in keywords:
+        for i in range(15):
+            getUrls(keyword,i*50,50)
+    
